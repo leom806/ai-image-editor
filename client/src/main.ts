@@ -1,5 +1,12 @@
+// Libraries
 import { createApp } from 'vue'
-import './style.css'
+
+// Styles
+import './index.css'
+
+// Components
 import App from './App.vue'
 
-createApp(App).mount('#app')
+// App config
+const app = createApp(App)
+app.mount('#app')
