@@ -78,7 +78,6 @@ export default {
       this.canvas.zoomToPoint({ x: event.offsetX, y: event.offsetY }, zoom)
     },
     addImageToHistory(event : any, data : any) {
-      console.log(event, data)
       const image = makeDrawableImage(event.src)
       image.onload = () => {
         this.imagesHistory.unshift({ src: image.src, prompt: event.prompt })

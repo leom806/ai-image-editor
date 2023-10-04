@@ -50,12 +50,11 @@
         this.$api
           .generateImage({ image: { prompt: this.$props.prompt }})
           .then((image : any) => {
-            console.log('Image generated')
             this.$emit('image-generated', { src: image.url })
             this.generating = false
           })
           .catch((error) => {
-            console.log(error)
+            console.error(error)
             this.generating = false
           })
       },
