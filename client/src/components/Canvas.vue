@@ -1,18 +1,25 @@
 <template>
   <main class="bg-gray-700 flex-col w-full h-screen overflow-hidden">
-    <div @mousewheel.prevent.stop="panAndZoom">
+    <div @mousewheel.prevent.stop="panAndZoom" class="bg-black">
       <canvas ref="canvas" :width="canvasWidth" :height="canvasHeight">
       </canvas>
     </div>
 
     <div class="inline-flex w-full h-max">
-      <div class="m-5 w-1/2 grid grid-flow-col grid-rows-3 grid-cols-6 gap-2">
-        <img
-          :src="image.src"
-          class="rounded-sm cursor-pointer hover:opacity-90"
+      <div class="m-5 w-1/2 grid grid-flow-col grid-rows-3 grid-cols-5 lg:grid-cols-8 gap-2">
+        <div
           v-for="image in imagesHistory"
-          @click="renderImage(image)"
-        />
+          :key="image.src"
+          class="cursor-pointer hover:opacity-80 flex justify-center items-center"
+        >
+          <img
+            :src="image.src"
+            :alt="image.prompt"
+            :title="image.prompt"
+            @click="selectImage(image)"
+            class="h-24 w-24 rounded-sm"
+          />
+        </div>
       </div>
 
       <section class="ml-auto w-1/2 flex justify-between p-5">
@@ -26,7 +33,9 @@
           :prompt="prompt"
           :canvas="canvas"
           :imageInput="$refs.imageInput"
+          :canUpload="canUpload && prompt.length > 0"
           class="ml-5"
+          @image-uploaded="imageUploaded"
           @image-generated="addImageToHistory"
         />
       </section>
@@ -59,6 +68,7 @@ export default {
       canvas: null as any,
       canvasWidth: window.innerWidth,
       canvasHeight: window.innerHeight - 400,
+      canUpload: false,
     }
   },
   mounted() {
@@ -68,7 +78,18 @@ export default {
   },
   methods: {
     renderImage(image : HTMLImageElement) {
-      this.canvas.setBackgroundImage(image.src, this.canvas.renderAll.bind(this.canvas))
+      const center = this.canvas.getCenter();
+
+      this.canvas.setBackgroundImage(image.src, this.canvas.renderAll.bind(this.canvas), {
+        top: center.top,
+        left: center.left,
+        originX: 'center',
+        originY: 'center'
+      })
+    },
+    selectImage(image : HTMLImageElement) {
+      this.renderImage(image)
+      this.canUpload = false
     },
     panAndZoom(event: any) {
       const delta = event.deltaY
@@ -76,6 +97,12 @@ export default {
       zoom *= 0.999 ** delta
       if (zoom >= 10 || zoom <= 0.2) return
       this.canvas.zoomToPoint({ x: event.offsetX, y: event.offsetY }, zoom)
+    },
+    imageUploaded(event : any, data : any) {
+      this.addImageToHistory(event, data)
+      this.canUpload = false
+      this.prompt = ""
+      this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
     },
     addImageToHistory(event : any, data : any) {
       const image = makeDrawableImage(event.src)
@@ -117,7 +144,6 @@ const setUpCanvas = function() {
   this.canvas.freeDrawingBrush.width = 30
   this.canvas.freeDrawingBrush.color = "#ffffff"
   this.canvas.preserveObjectStacking = true
-  this.canvas.backgroundColor = "#000000"
 
   if (this.imagesHistory.length > 0) {
     const image = makeDrawableImage(this.imagesHistory[0].src)
@@ -156,8 +182,15 @@ const setListeners = function () {
 
   const imageInput = this.$refs.imageInput as HTMLInputElement
   imageInput.addEventListener("change", (event : any) => {
-    const image = makeDrawableImage(URL.createObjectURL((event.target).files[0]))
+    const file = event.target.files[0]
+    if (!file) return
+
+    const image = makeDrawableImage(URL.createObjectURL(file))
+    image.crossOrigin = "same-origin"
     image.onload = () => this.renderImage(image)
+
+    event.target.value = null
+    this.canUpload = true
   })
 }
 

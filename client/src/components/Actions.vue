@@ -10,6 +10,11 @@
       Open File
     </button>
 
+    <button :disabled="!canUpload" @click="upload" class="block w-36 px-4 h-10 mt-5 rounded-sm bg-gray-100 text-gray-800 disabled:text-gray-400 disabled:cursor-not-allowed">
+      <spinner v-if="uploading" />
+      Upload
+    </button>
+
     <button @click="edit" class="block w-36 px-4 h-10 mt-5 rounded-sm bg-gray-100 text-gray-800">
       <spinner v-if="editing" />
       Edit
@@ -34,13 +39,14 @@
     components: {
       'spinner': Spinner,
     },
-    props: ['canvas', 'imageInput', 'prompt'],
+    props: ['canvas', 'imageInput', 'prompt', 'canUpload'],
     data() {
       return {
         generating: false,
-        opening: false,
-        editing: false,
-        upscaling: false,
+        opening:    false,
+        uploading:  false,
+        editing:    false,
+        upscaling:  false,
       }
     },
     methods: {
@@ -61,21 +67,34 @@
       open() {
         this.imageInput.click()
       },
+      upload() {
+        this.uploading = true
+        this.$api
+          .uploadImage({ image: { prompt: this.$props.prompt, base64_url: this.canvas.backgroundImage.toDataURL() }})
+          .then((image : any) => {
+            this.$emit('image-uploaded', { src: image.url })
+            this.uploading = false
+          })
+          .catch((error) => {
+            console.error(error)
+            this.uploading = false
+          })
+      },
       edit() {
 
       },
       upscale() {
-        this.upscaling = true
+        // this.upscaling = true
 
-        this.$api
-          .post(`/images/${this.canvas.data.imageId}/upscale`)
-          .then((data) => {
-            this.upscaling = false
-          })
+        // this.$api
+        //   .post(`/images/${this.canvas.data.imageId}/upscale`)
+        //   .then((data) => {
+        //     this.upscaling = false
+        //   })
       },
       fitToCanvas() {
         // Needs improvements to not cut the image
-        this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
+        this.$props.canvas.setViewportTransform([1, 0, 0, 1, 0, 0])
       }
     }
   }

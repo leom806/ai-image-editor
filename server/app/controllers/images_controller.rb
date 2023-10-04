@@ -30,6 +30,17 @@ class ImagesController < ApplicationController
     end
   end
 
+  def upload
+    @image = Image.new(image_params)
+    @image.url = params[:image][:base64_url]
+
+    if @image.save
+      render json: @image, status: :created, location: @image
+    else
+      render json: @image.errors, status: :unprocessable_entity
+    end
+  end
+
   def upscale
     path = File.join(Rails.root, "tmp", "upscale_#{@image.id}.png")
     mask_path = File.join(Rails.root, "public", "upscale_mask.png")

@@ -2,6 +2,7 @@ export default {
   getImages:      ()                      => API.get('/images'),
   generateImage:  (data: any)             => API.post('/images', data),
   editImage:      (id: number, data: any) => API.put(`/images/${id}`, data),
+  uploadImage:    (data: any)             => API.post(`/images/upload`, data),
   upscaleImage:   (id: number, data: any) => API.post(`/images/${id}/upscale`, data),
 }
 
