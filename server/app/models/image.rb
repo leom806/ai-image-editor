@@ -1,6 +1,14 @@
 class Image < ApplicationRecord
+  self.inheritance_column = nil
+
   validates :prompt, presence: true
-  validates :url,    presence: true, format: URI::regexp(%w[http https])
+  validates :url,    presence: true
 
   scope :sorted, -> { order(id: :desc) }
+
+  enum type: {
+    regular: 0,
+    upscale: 1,
+    edit:    2,
+  }
 end
