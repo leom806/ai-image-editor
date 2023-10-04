@@ -1,10 +1,11 @@
-## Leonardo Momente
+## AI Image Generator
 
 Hey, it's nice to see you here!
 
-Feel free to visit it at [leonardomomente.com](https://leonardomomente.com)
+This project is a simple image generator that uses a pre-trained model to generate images based on a given text.
+It's currently using a mix of OpenAI with Stability to generate the images.
 
-You can also find me at [LinkedIn](https://linkedin.com/in/leonardomomente) and [Twitter/X](https://twitter.com/Leo_Chromo)
+You can find me at [LinkedIn](https://linkedin.com/in/leonardomomente) and [Twitter/X](https://twitter.com/Leo_Chromo)
 
 #### Here are some details of this website
 
