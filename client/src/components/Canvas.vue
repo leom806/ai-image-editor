@@ -133,6 +133,8 @@ const loadInitialData = function() {
     .getImages()
     .then((data) => {
       this.imagesHistory = data.map((image : any) => makeDrawableImage(image.url))
+
+      this.selectImage(this.imagesHistory[0])
     })
 }
 
@@ -186,7 +188,7 @@ const setListeners = function () {
     if (!file) return
 
     const image = makeDrawableImage(URL.createObjectURL(file))
-    image.crossOrigin = "same-origin"
+    image.crossOrigin = "same-origin" // This is needed to avoid CORS issues when creating a dataURL from the image
     image.onload = () => this.renderImage(image)
 
     event.target.value = null
