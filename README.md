@@ -2,6 +2,7 @@
 
 ## AI Image Editor
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leom806/ai-image-editor/blob/main/LICENSE.txt)
 [![coverage](https://github.com/leom806/ai-image-editor/blob/main/server/coverage/coverage.svg)](https://github.com/leom806/ai-image-editor/blob/main/server/coverage/)
 
 Hey, it's nice to see you here!
