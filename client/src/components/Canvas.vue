@@ -29,22 +29,11 @@
           class="resize-none w-full p-3 rounded-sm shadow text-gray-700 outline-none focus:placeholder:text-transparent"
         ></textarea>
 
-        <div class="w-full flex flex-between">
-          <div v-if="canvas" class="w-36 mx-auto">
-            <label class="text-gray-100 text-sm font-bold mt-5">
-              Brush color
-            </label>
-            <input type="color" v-model="canvas.freeDrawingBrush.color" class="w-full"/>
-
-            <span class="inline-flex justify-between h-12 items-center w-full">
-              <label class="text-gray-100 text-sm font-bold mt-5">
-                Brush size
-              </label>
-              <input type="number" min="1" max="100" v-model="canvas.freeDrawingBrush.width" class="ml-auto mt-2"/>
-            </span>
-            <input type="range" min="1" max="100" v-model="canvas.freeDrawingBrush.width" class="w-full mt-2"/>
-          </div>
-        </div>
+        <tools
+          :canvas="canvas"
+          :canvasReady="canvas !== null"
+          class="ml-5"
+        />
 
         <actions
           :prompt="prompt"
@@ -70,11 +59,13 @@
 import { fabric } from 'fabric'
 // import anime from 'animejs/lib/anime.es.js'
 
-import Actions from './Actions.vue';
-import Spinner from './Spinner.vue';
+import Tools   from './Tools.vue'
+import Actions from './Actions.vue'
+import Spinner from './Spinner.vue'
 
 export default {
   components: {
+    'tools':   Tools,
     'spinner': Spinner,
     'actions': Actions,
   },
