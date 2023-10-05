@@ -1,5 +1,7 @@
 ## AI Image Generator
 
+[![coverage](https://github.com/leom806/ai-image-generator/blob/master/server/coverage/coverage.svg)](https://github.com/leom806/ai-image-generator/blob/master/server/coverage/)
+
 Hey, it's nice to see you here!
 
 This project is a simple image generator that uses a pre-trained model to generate images based on a given text.
