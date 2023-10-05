@@ -6,3 +6,7 @@ tmp/
 
 coverage/*
 !coverage/coverage.svg
+
+config/master.key
+
+/config/master.key
