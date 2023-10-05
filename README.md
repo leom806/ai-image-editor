@@ -1,3 +1,5 @@
+![Logo](https://github.com/leom806/ai-image-editor/assets/7718776/9b6f619a-3c6f-4912-8dae-e54964715425)
+
 ## AI Image Editor
 
 [![coverage](https://github.com/leom806/ai-image-editor/blob/main/server/coverage/coverage.svg)](https://github.com/leom806/ai-image-editor/blob/main/server/coverage/)
