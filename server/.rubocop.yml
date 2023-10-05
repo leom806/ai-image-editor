@@ -1,0 +1,84 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  Exclude:
+    - vendor/**/*
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/HashSyntax:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 130
+  Exclude:
+    - bin/**/*
+    - spec/**/*
+    - db/**/*
+
+Layout/ExtraSpacing:
+  AllowForAlignment:
+    Enabled: true
+  AllowBeforeTrailingComments:
+    Enabled: true
+
+Layout/BlockAlignment:
+  Enabled: true
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: keyword
+
+Layout/HashAlignment:
+  Enabled: false
+
+Metrics:
+  Enabled: true
+
+# not cool
+Style/CommentedKeyword:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
+
+# these cops are disabled only in the test files in order to
+# allow to copy and paste the failed output for test reconciliation
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+  - spec/**/*
+
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - db/**/*
+    - spec/**/*
+
+Metrics/MethodLength:
+  Enabled: true
+  Max: 20
+  Exclude:
+    - db/**/*
+    - spec/**/*
+    - bin/**/*
+
+Metrics/CyclomaticComplexity:
+  Enabled: true
+  Max: 10
+  Exclude:
+    - db/**/*
+    - spec/**/*
+    - bin/**/*
+
+Metrics/PerceivedComplexity:
+  Enabled: true
+  Max: 10
+  Exclude:
+    - db/**/*
+    - spec/**/*
+    - bin/**/*

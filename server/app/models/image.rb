@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+#
+# Represents an image in the application
+#
 class Image < ApplicationRecord
   self.inheritance_column = nil
 
@@ -9,6 +14,6 @@ class Image < ApplicationRecord
   enum type: {
     regular: 0,
     upscale: 1,
-    edit:    2,
+    edit: 2,
   }
 end
