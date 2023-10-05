@@ -50,6 +50,38 @@ Just create one account at Stability and/or OpenAI and look for their API Keys.
 Feel free to open a PR or an issue if you find something that could be improved.
 At this point there are many features and improvements to be made, so I'll be happy to accept any help.
 
+Please make sure tests are passing before opening a PR.
+
+```bash
+cd server # if you are not already there
+bundle exec rspec # or just rspec if you have it installed globally
+```
+After running the tests you can check the coverage report at `server/coverage/index.html`.
+
+If you have the open command:
+```bash
+open server/coverage/index.html # or just coverage/index.html if you are already in the server folder
+```
+
+#### Code Metrics
+
+This will be in the CI pipeline soon, but for now you can run the following commands to check for code metrics.
+
+##### Server
+
+```bash
+cd server # if you are not already there
+```
+
+Then you can run any of the following commands to check for code metrics:
+
+```bash
+bundle exec brakeman
+bundle exec rails_best_practices .
+bundle exec rubocop
+bundle exec rubycritic
+```
+
 #### License
 
 MIT

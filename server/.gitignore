@@ -10,3 +10,5 @@ coverage/*
 config/master.key
 
 /config/master.key
+
+rails_best_practices_output.html
